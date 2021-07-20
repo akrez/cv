@@ -29,7 +29,7 @@ $form = ActiveForm::begin([
     <div class="col-sm-3">
         <?= $form->field($model, 'subtitle')->textInput(['maxlength' => true]) ?>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <?= $form->field($model, 'is_multiple')->dropDownList(Status::noYesList()) ?>
     </div>
 </div>
