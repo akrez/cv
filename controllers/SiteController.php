@@ -79,6 +79,7 @@ class SiteController extends Controller
         $action = Yii::$app->request->get('action');
         $fieldId = Yii::$app->request->get('field_id');
         $id = Yii::$app->request->get('id');
+        $post = Yii::$app->request->post();
         //
         $model = null;
         //
@@ -96,7 +97,7 @@ class SiteController extends Controller
                 $model = $contents[$fieldId][$id];
             }
             //
-            if ($action == 'content') {
+            if ($action == 'content' && $post) {
                 if (!$model) {
                     if ($fields[$fieldId]->is_multiple || empty($contents[$fieldId])) {
                         $model = new Content();
@@ -119,7 +120,7 @@ class SiteController extends Controller
                     }
                 }
 
-                Helper::store($model, Yii::$app->request->post(), $staticAttributes);
+                Helper::store($model, $post, $staticAttributes);
                 $contents[$fieldId][$model->id] = $model;
             } elseif ($action == 'delete' && $model) {
                 $galleryName = $model->gallery_name;
