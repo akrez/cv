@@ -10,6 +10,33 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $field app\models\Field */
 
+if (!function_exists('calcColsSize')) {
+
+    function calcColsSize($field)
+    {
+        $capacity = ($field->show_gallery ? 7 : 10);
+
+        $scales = [
+            'tag' => $field->show_tag ? 2 : 0,
+            'header' => !$field->hide_header ? 2 : 0,
+            'body' => !$field->hide_body ? 3 : 0,
+        ];
+        $scales = array_filter($scales);
+
+        $last = '_';
+        $result = [$last => 0];
+        foreach ($scales as $key => $scale) {
+            $last = $key;
+            $result[$key] = $scale;
+            $capacity = $capacity - $scale;
+        }
+        $result[$last] = $result[$last] + $capacity;
+
+        return $result;
+    }
+}
+
+$colsSize = calcColsSize($field);
 ?>
 
 <?php
@@ -21,25 +48,27 @@ $form = ActiveForm::begin([
     ],
 ]);
 $btnLabel = "<label>&nbsp;</label>";
-
 ?>
 
 <div class="row">
     <?php
-    if (!$field->hide_header) {
-        echo '<div class="col-sm-2">';
+    if (isset($colsSize['header'])) {
+        echo '<div class="col-sm-' . $colsSize['header'] . '">';
         echo $form->field($model, 'header')->textInput()->label($field->header_label ? $field->header_label : $field->title);
         echo '</div>';
     }
-    if (!$field->hide_body) {
-        echo '<div class="col-sm-3">';
+    if (isset($colsSize['body'])) {
+        echo '<div class="col-sm-' . $colsSize['body'] . '">';
         echo $form->field($model, 'body')->textInput()->label($field->body_label ? $field->body_label : $field->subtitle);
         echo '</div>';
     }
-    if ($field->show_tag) {
-        echo '<div class="col-sm-2">';
+    if (isset($colsSize['tag'])) {
+        echo '<div class="col-sm-' . $colsSize['tag'] . '">';
         echo $form->field($model, 'tag')->textInput()->label($field->tag_label ? $field->tag_label : null);
         echo '</div>';
+    }
+    if ($colsSize['_']) {
+        echo '<div class="col-sm-' . $colsSize['_'] . '"></div>';
     }
     if ($field->show_gallery) {
         $imageInputId = hash('sha256', 'image-' . $field->title . '-' . $field->subtitle . '-' . $model->id);
