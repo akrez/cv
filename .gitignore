@@ -1,7 +1,6 @@
 /vendor
 
-/rbac/*
-!/rbac/.gitkeep
+/rbac/assignments.php
 
 /web/image/*
 !/web/image/.gitkeep
