@@ -29,6 +29,9 @@ $this->registerCss("
     max-width: 100%;
     max-height: 100%;
 }
+small, .small {
+    font-size: 75%;
+}
 ");
 $this->registerJs("
 $(document).on('pjax:beforeSend', function(xhr, options) {
