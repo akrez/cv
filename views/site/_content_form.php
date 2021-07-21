@@ -14,7 +14,7 @@ if (!function_exists('calcColsSize')) {
 
     function calcColsSize($field)
     {
-        $capacity = ($field->show_gallery ? 7 : 10);
+        $capacity = ($field->show_gallery ? 7 : 9);
 
         $scales = [
             'tag' => $field->show_tag ? 2 : 0,
@@ -40,12 +40,14 @@ $colsSize = calcColsSize($field);
 ?>
 
 <?php
+$uniqueHash = hash('sha256', 'image-' . $field->title . '-' . $i  . '-' . $field->subtitle . '-' . $model->id);
 $form = ActiveForm::begin([
     'action' => Url::to(['site/profile', 'action' => 'content', 'id' => $model->id, 'field_id' => $field->id,]),
     'options' => [
         'data-pjax' => true,
         'enctype' => 'multipart/form-data',
     ],
+    'id' => 'id-' . $uniqueHash,
 ]);
 $btnLabel = "<label>&nbsp;</label>";
 ?>
@@ -54,43 +56,44 @@ $btnLabel = "<label>&nbsp;</label>";
     <?php
     if (isset($colsSize['header'])) {
         echo '<div class="col-sm-' . $colsSize['header'] . '">';
-        echo $form->field($model, 'header')->textInput()->label($field->header_label ? $field->header_label : $field->title);
+        echo $form->field($model, 'header')->textInput()->label(ucfirst($field->header_label ? $field->header_label : $field->title));
         echo '</div>';
     }
     if (isset($colsSize['body'])) {
         echo '<div class="col-sm-' . $colsSize['body'] . '">';
-        echo $form->field($model, 'body')->textInput()->label($field->body_label ? $field->body_label : $field->subtitle);
+        echo $form->field($model, 'body')->textInput()->label(ucfirst($field->body_label ? $field->body_label : $field->subtitle));
         echo '</div>';
     }
     if (isset($colsSize['tag'])) {
         echo '<div class="col-sm-' . $colsSize['tag'] . '">';
-        echo $form->field($model, 'tag')->textInput()->label($field->tag_label ? $field->tag_label : null);
+        echo $form->field($model, 'tag')->textInput()->label($field->tag_label ? ucfirst($field->tag_label) : null);
         echo '</div>';
     }
     if ($colsSize['_']) {
         echo '<div class="col-sm-' . $colsSize['_'] . '"></div>';
     }
     if ($field->show_gallery) {
-        $imageInputId = hash('sha256', 'image-' . $field->title . '-' . $field->subtitle . '-' . $model->id);
-        echo '<div class="col-sm-3"><div class="row">';
+        $imageInputId = 'image-' . $uniqueHash;
+        $imageUrl = Gallery::getUrl($model->gallery_name);
+        echo '<div class="col-sm-2">' . ($field->gallery_label ? '<label class="control-label">' . $field->gallery_label . '</label>' : $btnLabel) . '<div class="row">';
         if ($model->gallery_name) {
-            echo '<div class="col-sm-4">' . $btnLabel;
-            echo Html::img(Gallery::getUrl($model->gallery_name), ["class" => "img img-responsive"]);
-            echo '</div>';
-            echo '<div class="col-sm-8">' . $btnLabel;
-            echo Html::a('Delete' . ($field->gallery_label ? ' ' . $field->gallery_label : ''), ['site/profile', 'action' => 'delete-gallery', 'id' => $model->id, 'field_id' => $field->id,], ['class' => 'btn btn-warning btn-block']);
-            echo '</div>';
+            echo '<div class="col-sm-12">' .
+                '<div class="input-group">' .
+                '<div class="form-control form-control-img">' . Html::img($imageUrl) . '</div>' .
+                Html::a('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>', ['site/profile', 'action' => 'delete-gallery', 'id' => $model->id, 'field_id' => $field->id,], ['class' => 'btn btn-default text-danger input-group-addon']) .
+                '</div>' .
+                '</div>';
         } else {
-            echo '<div class="col-sm-12">' . $btnLabel;
-            echo Html::label('Upload' . ($field->gallery_label ? ' ' . $field->gallery_label : ''), $imageInputId, ['class' => 'btn btn-info btn-block']);
+            echo '<div class="col-sm-12">';
+            echo Html::label('Upload', $imageInputId, ['class' => 'btn btn-default btn-block']);
             echo '</div>';
         }
-        echo Html::activeFileInput($model, 'image', ['style' => 'display: none', 'id' => $imageInputId]);
+        echo Html::activeFileInput($model, 'image', ['style' => 'display: none', 'id' => $imageInputId, 'class' => 'gallery-input']);
         echo '</div></div>';
     }
     ?>
-    <div class="col-sm-<?= $model->isNewRecord ? 2 : 1 ?>">
-        <?= $btnLabel . Html::submitButton($model->isNewRecord ? 'Create' : 'Save', ['class' => 'btn btn-block ' . ($model->isNewRecord ? 'btn-success' : 'btn-primary')]); ?>
+    <div class="col-sm-<?= $model->isNewRecord ? 3 : 2 ?>">
+        <?= $btnLabel . Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-block ' . ($model->isNewRecord ? 'btn-success' : 'btn-primary')]); ?>
     </div>
     <?php
     if (!$model->isNewRecord) {
