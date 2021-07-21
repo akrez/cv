@@ -75,7 +75,7 @@ $btnLabel = "<label>&nbsp;</label>";
     if ($field->show_gallery) {
         $imageInputId = 'image-' . $uniqueHash;
         $imageUrl = Gallery::getUrl($model->gallery_name);
-        echo '<div class="col-sm-2">' . ($field->gallery_label ? '<label class="control-label">' . $field->gallery_label . '</label>' : $btnLabel) . '<div class="row">';
+        echo '<div class="col-sm-2">' . ($field->gallery_label ? '<label class="control-label">' . ucfirst($field->gallery_label) . '</label>' : $btnLabel) . '<div class="row">';
         if ($model->gallery_name) {
             echo '<div class="col-sm-12">' .
                 '<div class="input-group">' .
