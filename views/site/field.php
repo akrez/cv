@@ -13,10 +13,13 @@ $this->title = 'Fields';
     echo $this->render('_field_form', [
         'model' => $newModel,
     ]);
-    foreach ($models as $modelOfModels) {
-        echo $this->render('_field_form', [
-            'model' => ($model && $modelOfModels->id == $model->id ? $model : $modelOfModels),
-        ]);
+    foreach ($fields as $fieldTitle => $fieldsTitle) {
+        echo '<div class="alert alert-info" role="alert"><h3 class="text-info m-0">' . ucfirst($fieldTitle) . '</h3></div>';
+        foreach ($fieldsTitle as $fieldSubtitle => $field) {
+            echo $this->render('_field_form', [
+                'model' => ($model && $field->id == $model->id ? $model : $field),
+            ]);
+        }
     }
     ?>
 </div>

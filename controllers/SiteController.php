@@ -154,10 +154,10 @@ class SiteController extends Controller
 
         $model = null;
         $newModel = new Field();
-        $models = Field::find()->orderBy(['title' => SORT_ASC, 'subtitle' => SORT_ASC])->indexBy('id')->all();
+        $fields = Field::find()->orderBy(['title' => SORT_ASC, 'subtitle' => SORT_ASC])->indexBy('id')->all();
 
-        if ($id && isset($models[$id])) {
-            $model = $models[$id];
+        if ($id && isset($fields[$id])) {
+            $model = $fields[$id];
             if ($delete) {
                 Helper::delete($model);
                 $updateCacheNeeded = true;
@@ -171,7 +171,10 @@ class SiteController extends Controller
         if ($updateCacheNeeded) {
             return $this->redirect($redirectUrl);
         }
-        return $this->render('field', compact('model', 'models', 'newModel'));
+
+        $fields = ArrayHelper::index($fields, 'subtitle', 'title');
+
+        return $this->render('field', compact('model', 'fields', 'newModel'));
     }
 
     public function actionUser($email = null)
