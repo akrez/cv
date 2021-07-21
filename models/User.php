@@ -155,4 +155,46 @@ class User extends ActiveRecord implements IdentityInterface
             'MyResume' => 'MyResume',
         ];
     }
+
+    public static function getUserOfHost($url, $mainHost)
+    {
+        $url = str_replace(' ', '', $url);
+        $url = strtolower($url);
+        foreach (['https://', 'http://', 'www'] as $prefix) {
+            if (substr($url, 0, strlen($prefix)) == $prefix) {
+                $url = substr($url, strlen($prefix));
+            }
+        }
+        $url = explode('/', $url);
+        $url = $url[0];
+        //
+        $urlArray = explode('.', $url);
+        //
+        $domain = array_slice($urlArray, count($urlArray) - 2, count($urlArray));
+        $domain = implode('.', $domain);
+        //
+        $subdomain = null;
+        if (count($urlArray) > 2 && $domain == $mainHost) {
+            $subdomain = array_slice($urlArray, 0, count($urlArray) - 2);
+            $subdomain = implode('.', $subdomain);
+        }
+
+        $conditions = ['OR',];
+        $conditions[] = [
+            'AND',
+            ['not', ['domain' => null]],
+            ['not', ['domain' => '']],
+            ['domain' => $domain],
+        ];
+        if ($subdomain) {
+            $conditions[] = [
+                'AND',
+                ['not', ['subdomain' => null]],
+                ['not', ['subdomain' => '']],
+                ['subdomain' => $subdomain],
+            ];
+        }
+
+        return User::find()->where($conditions)->one();
+    }
 }
