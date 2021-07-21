@@ -76,3 +76,4 @@ $form = ActiveForm::begin([
     </div>
 </div>
 <?php ActiveForm::end(); ?>
+<hr class="mt-5" />
