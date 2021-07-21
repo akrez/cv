@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\Data;
 use Yii;
 use Throwable;
 use app\models\User;
@@ -14,6 +15,7 @@ use app\models\Gallery;
 use yii\helpers\ArrayHelper;
 use yii\web\ForbiddenHttpException;
 use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 class SiteController extends Controller
@@ -83,7 +85,7 @@ class SiteController extends Controller
         //
         $model = null;
         //
-        $contents = Content::find()->indexBy('id')->all();
+        $contents = Content::find()->where(['user_email' => Yii::$app->user->getId()])->indexBy('id')->all();
         $contents = ArrayHelper::index($contents, 'id', 'field_id');
         //
         $fields = Field::find()->indexBy('id')->all();
@@ -143,7 +145,31 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->renderFile('@app/views/MyResume.php');
+        $user = User::getUserOfHost($_SERVER['HTTP_HOST'], Yii::$app->params['mainHost']);
+        if (empty($user)) {
+            throw new NotFoundHttpException();
+        }
+
+        $contents = Content::find()->where(['user_email' => $user->email])->indexBy('id')->all();
+        $contents = ArrayHelper::index($contents, 'id', 'field_id');
+
+        $fields = Field::find()->indexBy('id')->all();
+        $fields = ArrayHelper::index($fields, 'subtitle', 'title');
+
+        $data = [];
+        foreach ($fields as $fieldTitle => $fieldsTitle) {
+            foreach ($fieldsTitle as $fieldSubtitle => $field) {
+                if (isset($contents[$field->id])) {
+                    foreach ($contents[$field->id] as $contentId => $content) {
+                        $data[$fieldTitle][$fieldSubtitle][] = $content->toArray();
+                    }
+                }
+            }
+        }
+
+        return $this->renderFile('@app/views/' . $user->theme . '.php', [
+            'data' => new Data(['data' => $data]),
+        ]);
     }
 
     public function actionField($id = null, $delete = null)
@@ -229,7 +255,7 @@ class SiteController extends Controller
                         $auth->assign($adminRole, $user->id);
                     }
                     Yii::$app->user->login($user, 86400);
-                    return $this->goBack();
+                    return $this->redirect(['site/profile']);
                 }
             }
             return $this->render('signin', ['model' => $signin]);
