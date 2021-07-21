@@ -23,6 +23,9 @@ html, body {
 }
 .mt-0 {
     margin-top: 0;
+} 
+.m-0 {
+    margin: 0;
 }
 ");
 ?>
