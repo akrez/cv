@@ -9,9 +9,6 @@ use yii\helpers\Html;
 
 $this->title = 'Profile';
 $this->registerCss("
-.m-0 {
-    margin: 0;
-}
 .splash-style {
     background-image: url('" . Yii::getAlias('@web/loading.svg') . "');
     display: none;
