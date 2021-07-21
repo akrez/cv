@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<hr />
+
 <?php
 $form = ActiveForm::begin([
     'action' => Url::current(['site/field', 'id' => $model->id, 'delete' => null,]),
