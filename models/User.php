@@ -179,6 +179,11 @@ class User extends ActiveRecord implements IdentityInterface
             $subdomain = implode('.', $subdomain);
         }
 
+        return static::getUserByHost($domain, $subdomain);
+    }
+
+    public static function getUserByHost($domain, $subdomain = null)
+    {
         $conditions = ['OR',];
         $conditions[] = [
             'AND',
