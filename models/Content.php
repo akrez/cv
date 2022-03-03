@@ -46,6 +46,16 @@ class Content extends ActiveRecord
         ];
     }
 
+    public function toArray(array $fields = [], array $expand = [], $recursive = true)
+    {
+        return [
+            'header' => $this->header,
+            'body' => $this->body,
+            'tag' => $this->tag,
+            'gallery_name' => $this->gallery_name,
+        ];
+    }
+
     /**
      * Gets query for [[Field]].
      *
