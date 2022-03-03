@@ -24,7 +24,7 @@ class SiteController extends Controller
     {
         $rules = [
             [
-                'actions' => ['error', 'index', 'captcha'],
+                'actions' => ['error', 'index', 'captcha', 'json'],
                 'allow' => true,
                 'verbs' => ['POST', 'GET'],
                 'roles' => ['?', '@'],
@@ -143,11 +143,11 @@ class SiteController extends Controller
         return $this->render('content', compact('fields', 'contents'));
     }
 
-    public function actionIndex()
+    private static function getContent($url)
     {
-        $user = User::getUserOfHost($_SERVER['HTTP_HOST'], Yii::$app->params['mainHost']);
+        $user = User::getUserOfHost($url, Yii::$app->params['mainHost']);
         if (empty($user)) {
-            throw new NotFoundHttpException();
+            return null;
         }
 
         $contents = Content::find()->where(['user_email' => $user->email])->indexBy('id')->all();
@@ -167,9 +167,34 @@ class SiteController extends Controller
             }
         }
 
-        return $this->renderFile('@app/views/' . $user->theme . '.php', [
-            'data' => new Data(['data' => $data]),
+        return [
+            'user' => $user->toArray(),
+            'data' => $data,
+        ];
+    }
+
+    public function actionIndex()
+    {
+        $content = static::getContent($_SERVER['HTTP_HOST']);
+        if ($content === null) {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->renderFile('@app/views/' . $content['user']['theme'] . '.php', [
+            'data' => new Data([
+                'data' => $content['data'],
+            ]),
         ]);
+    }
+
+    public function actionJson()
+    {
+        $content = static::getContent($_SERVER['HTTP_HOST']);
+        if ($content === null) {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->asJson($content);
     }
 
     public function actionField($id = null, $delete = null)

@@ -202,4 +202,14 @@ class User extends ActiveRecord implements IdentityInterface
 
         return User::find()->where($conditions)->one();
     }
+
+    public function toArray(array $fields = [], array $expand = [], $recursive = true)
+    {
+        return [
+            'email' => $this->email,
+            'theme' => $this->theme,
+            'subdomain' => $this->subdomain,
+            'domain' => $this->domain,
+        ];
+    }
 }
