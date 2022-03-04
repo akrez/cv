@@ -153,6 +153,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'MyResume' => 'MyResume',
+            'iPortfolio' => 'iPortfolio',
         ];
     }
 
