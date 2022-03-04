@@ -3,6 +3,11 @@
 use yii\helpers\Html;
 use app\models\Gallery;
 use app\assets\MyResumeAsset;
+use app\components\Data;
+
+$data = new Data([
+    'data' => $data,
+]);
 
 MyResumeAsset::register($this);
 $this->title = $data->cell('user', 'profile', 'header');
@@ -215,9 +220,9 @@ $this->title = $data->cell('user', 'profile', 'header');
                         </div>
 
                         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-                            <?php foreach ($portfoliosItems as $portfoliosItem) { 
-                                $galleryUrl = Gallery::getUrl($portfoliosItem['gallery_name']) ;
-                                ?>
+                            <?php foreach ($portfoliosItems as $portfoliosItem) {
+                                $galleryUrl = Gallery::getUrl($portfoliosItem['gallery_name']);
+                            ?>
                                 <div class="col-lg-4 col-md-6 portfolio-item <?= $portfoliosTags[$portfoliosItem['tag']] ?>">
                                     <div class="portfolio-wrap">
                                         <img src="<?= $galleryUrl ?>" class="img-fluid" alt="">

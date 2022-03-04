@@ -181,9 +181,7 @@ class SiteController extends Controller
         }
 
         return $this->renderFile('@app/views/' . $content['user']['theme'] . '.php', [
-            'data' => new Data([
-                'data' => $content['data'],
-            ]),
+            'data' => $content['data'],
         ]);
     }
 
