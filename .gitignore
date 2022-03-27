@@ -16,3 +16,5 @@
 
 /web/assets/*
 !/web/assets/.gitkeep
+
+.vscode/
