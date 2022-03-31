@@ -1,4 +1,3 @@
-
 <?php
 
 use yii\helpers\Html;
@@ -7,7 +6,7 @@ use app\assets\PersonalAsset;
 use app\components\Data;
 
 $data = new Data([
-    'data' => $data,
+  'data' => $data,
 ]);
 
 PersonalAsset::register($this);
@@ -19,14 +18,14 @@ $this->title = $data->cell('user', 'profile', 'header');
 <html lang="en">
 
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link rel="icon" href="<?= Gallery::getUrl('favicon.svg') ?>" type="image/svg+xml">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-    <?php $this->head() ?>
+  <meta charset="<?= Yii::$app->charset ?>">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link rel="icon" href="<?= Gallery::getUrl('favicon.svg') ?>" type="image/svg+xml">
+  <?= Html::csrfMetaTags() ?>
+  <title><?= Html::encode($this->title) ?></title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <?php $this->head() ?>
 </head>
 
 
@@ -40,36 +39,36 @@ $this->title = $data->cell('user', 'profile', 'header');
       <h1><a href="index.html"> <?= $data->cell('user', 'profile', 'header') ?></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a> -->
-      <h2>I'm a  <span class="typed" data-typed-items="<?= $data->cell('about', 'banner', 'body') ?>"></span>
+      <h2>I'm a <span class="typed" data-typed-items="<?= $data->cell('about', 'banner', 'body') ?>"></span>
 
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="#header">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#resume">Resume</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav><!-- .nav-menu -->
+        <nav class="nav-menu d-none d-lg-block">
+          <ul>
+            <li class="active"><a href="#header">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#resume">Resume</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav><!-- .nav-menu -->
 
-      <div class="social-links">
-      <?php
-                if ($data->cell('social', 'twitter', 'body')) {
-                    echo '<a href="' . $data->cell('social', 'twitter', 'body') . '" class="twitter"><i class="bx bxl-twitter", "icofont-twitter"></i></a>';
-                }
-                if ($data->cell('social', 'facebook', 'body')) {
-                    echo '<a href="' . $data->cell('social', 'facebook', 'body') . '" class="facebook"><i class="bx bxl-facebook", "icofont-facebook"></i></a>';
-                }
-                if ($data->cell('social', 'instagram', 'body')) {
-                    echo '<a href="' . $data->cell('social', 'instagram', 'body') . '" class="instagram"><i class="bx bxl-instagram", "icofont-instagram"></i></a>';
-                }
-                if ($data->cell('social', 'linkedin', 'body')) {
-                    echo '<a href="' . $data->cell('social', 'linkedin', 'body') . '" class="linkedin"><i class="bx bxl-linkedin", icofont-linkedin"></i></a>';
-                }
-                ?>
-                
-      </div>
+        <div class="social-links">
+          <?php
+          if ($data->cell('social', 'twitter', 'body')) {
+            echo '<a href="' . $data->cell('social', 'twitter', 'body') . '" class="twitter"><i class="bx bxl-twitter", "icofont-twitter"></i></a>';
+          }
+          if ($data->cell('social', 'facebook', 'body')) {
+            echo '<a href="' . $data->cell('social', 'facebook', 'body') . '" class="facebook"><i class="bx bxl-facebook", "icofont-facebook"></i></a>';
+          }
+          if ($data->cell('social', 'instagram', 'body')) {
+            echo '<a href="' . $data->cell('social', 'instagram', 'body') . '" class="instagram"><i class="bx bxl-instagram", "icofont-instagram"></i></a>';
+          }
+          if ($data->cell('social', 'linkedin', 'body')) {
+            echo '<a href="' . $data->cell('social', 'linkedin', 'body') . '" class="linkedin"><i class="bx bxl-linkedin", icofont-linkedin"></i></a>';
+          }
+          ?>
+
+        </div>
 
     </div>
   </header><!-- End Header -->
@@ -124,50 +123,51 @@ $this->title = $data->cell('user', 'profile', 'header');
 
     <!-- ======= Counts ======= -->
     <?php if ($contactCount = $data->count('contact')) { ?>
-    <div class="counts container">
+      <div class="counts container">
 
-      <div class="row">
+        <div class="row">
 
-        <div class="col-lg-3 col-md-6">
-          <div class="count-box">
-            <i class="icofont-simple-smile"></i>
-            <span data-toggle="counter-up">232</span>
-            <p>Happy Clients</p>
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="icofont-simple-smile"></i>
+              <span data-toggle="counter-up">232</span>
+              <p>Happy Clients</p>
+            </div>
           </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+            <div class="count-box">
+              <i class="icofont-document-folder"></i>
+              <span data-toggle="counter-up">521</span>
+              <p>Projects</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <i class="icofont-live-support"></i>
+              <span data-toggle="counter-up">1,463</span>
+              <p>Hours Of Support</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <i class="icofont-users-alt-5"></i>
+              <span data-toggle="counter-up">15</span>
+              <p>Hard Workers</p>
+            </div>
+          </div>
+
         </div>
 
-        <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
-          <div class="count-box">
-            <i class="icofont-document-folder"></i>
-            <span data-toggle="counter-up">521</span>
-            <p>Projects</p>
-          </div>
-        </div>
 
-        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-          <div class="count-box">
-            <i class="icofont-live-support"></i>
-            <span data-toggle="counter-up">1,463</span>
-            <p>Hours Of Support</p>
-          </div>
-        </div>
 
-        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-          <div class="count-box">
-            <i class="icofont-users-alt-5"></i>
-            <span data-toggle="counter-up">15</span>
-            <p>Hard Workers</p>
-          </div>
-        </div>
+
 
       </div>
-
-    
-     
-    
-    
-    </div>
-    <?php } ?><!-- End Counts -->
+    <?php } ?>
+    <!-- End Counts -->
 
     <!-- ======= Skills  ======= -->
     <div class="skills container">
@@ -177,19 +177,16 @@ $this->title = $data->cell('user', 'profile', 'header');
       </div>
 
       <div class="row skills-content">
-      <?php foreach ($data->all('skill', 'items') as $dataSkillItem) { ?>
-
-        <div class="col-lg-6">
-
-        <div class="progress">
-                                <span class="skill"><?= $dataSkillItem['header'] ?> <i class="val"><?= $dataSkillItem['tag'] ?>%</i></span>
-                                <div class="progress-bar-wrap">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?= $dataSkillItem['tag'] ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-
-
-
+        <?php foreach ($data->all('skill', 'items') as $dataSkillItem) { ?>
+          <div class="col-lg-6">
+            <div class="progress">
+              <span class="skill"><?= $dataSkillItem['header'] ?> <i class="val"><?= $dataSkillItem['tag'] ?>%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="<?= $dataSkillItem['tag'] ?>" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+          </div>
+        <?php } ?>
       </div>
 
     </div><!-- End Skills -->
@@ -660,43 +657,43 @@ $this->title = $data->cell('user', 'profile', 'header');
             <i class="bx bx-share-alt"></i>
             <h3>Social Profiles</h3>
             <div class="social-links">
-            <?php
-                if ($data->cell('social', 'twitter', 'body')) {
-                    echo '<a href="' . $data->cell('social', 'twitter', 'body') . '" class="twitter"><i class="bx bxl-twitter", "icofont-twitter"></i></a>';
-                }
-                if ($data->cell('social', 'facebook', 'body')) {
-                    echo '<a href="' . $data->cell('social', 'facebook', 'body') . '" class="facebook"><i class="bx bxl-facebook", "icofont-facebook"></i></a>';
-                }
-                if ($data->cell('social', 'instagram', 'body')) {
-                    echo '<a href="' . $data->cell('social', 'instagram', 'body') . '" class="instagram"><i class="bx bxl-instagram", "icofont-instagram"></i></a>';
-                }
-                if ($data->cell('social', 'linkedin', 'body')) {
-                    echo '<a href="' . $data->cell('social', 'linkedin', 'body') . '" class="linkedin"><i class="bx bxl-linkedin", icofont-linkedin"></i></a>';
-                }
-                ?>
-                
- >
+              <?php
+              if ($data->cell('social', 'twitter', 'body')) {
+                echo '<a href="' . $data->cell('social', 'twitter', 'body') . '" class="twitter"><i class="bx bxl-twitter", "icofont-twitter"></i></a>';
+              }
+              if ($data->cell('social', 'facebook', 'body')) {
+                echo '<a href="' . $data->cell('social', 'facebook', 'body') . '" class="facebook"><i class="bx bxl-facebook", "icofont-facebook"></i></a>';
+              }
+              if ($data->cell('social', 'instagram', 'body')) {
+                echo '<a href="' . $data->cell('social', 'instagram', 'body') . '" class="instagram"><i class="bx bxl-instagram", "icofont-instagram"></i></a>';
+              }
+              if ($data->cell('social', 'linkedin', 'body')) {
+                echo '<a href="' . $data->cell('social', 'linkedin', 'body') . '" class="linkedin"><i class="bx bxl-linkedin", icofont-linkedin"></i></a>';
+              }
+              ?>
+
+              >
             </div>
           </div>
         </div>
 
         <div class="col-md-6 mt-4 d-flex align-items-stretch">
-        <?php if ($data->cell('contact', 'email', 'body')) { ?>
-          <div class="info-box">
-            <i class="bx bx-envelope"></i>
-            <h3>Email Me</h3>
-            <p><?= $data->cell('contact', 'email', 'body'); ?></p>
-          </div>
+          <?php if ($data->cell('contact', 'email', 'body')) { ?>
+            <div class="info-box">
+              <i class="bx bx-envelope"></i>
+              <h3>Email Me</h3>
+              <p><?= $data->cell('contact', 'email', 'body'); ?></p>
+            </div>
           <?php } ?>
         </div>
         <?php if ($data->cell('contact', 'call', 'body')) { ?>
-        <div class="col-md-6 mt-4 d-flex align-items-stretch">
-          <div class="info-box">
-            <i class="bx bx-phone-call"></i>
-            <h3>Call Me</h3>
-            <p><?= $data->cell('contact', 'call', 'body'); ?></p>
+          <div class="col-md-6 mt-4 d-flex align-items-stretch">
+            <div class="info-box">
+              <i class="bx bx-phone-call"></i>
+              <h3>Call Me</h3>
+              <p><?= $data->cell('contact', 'call', 'body'); ?></p>
+            </div>
           </div>
-        </div>
         <?php } ?>
 
       </div>
