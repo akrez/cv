@@ -143,6 +143,7 @@ class SiteController extends Controller
         return $this->render('content', compact('fields', 'contents'));
     }
 
+
     private static function getContent($url)
     {
         $user = User::getUserOfHost($url, Yii::$app->params['mainHost']);
