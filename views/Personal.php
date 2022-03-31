@@ -36,39 +36,40 @@ $this->title = $data->cell('user', 'profile', 'header');
   <header id="header" class="header-tops">
     <div class="container">
 
-      <h1><a href="index.html"> <?= $data->cell('user', 'profile', 'header') ?></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a> -->
-      <h2>I'm a <span class="typed" data-typed-items="<?= $data->cell('about', 'banner', 'body') ?>"></span>
+      <h1><a href="index.html"><?= $data->cell('user', 'profile', 'header') ?></a></h1>
 
-        <nav class="nav-menu d-none d-lg-block">
-          <ul>
-            <li class="active"><a href="#header">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#resume">Resume</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav><!-- .nav-menu -->
+      <h2>I'm a passionate <span><?= $data->cell('about', 'banner', 'body') ?></span> </h2>
 
-        <div class="social-links">
-          <?php
-          if ($data->cell('social', 'twitter', 'body')) {
-            echo '<a href="' . $data->cell('social', 'twitter', 'body') . '" class="twitter"><i class="bx bxl-twitter", "icofont-twitter"></i></a>';
-          }
-          if ($data->cell('social', 'facebook', 'body')) {
-            echo '<a href="' . $data->cell('social', 'facebook', 'body') . '" class="facebook"><i class="bx bxl-facebook", "icofont-facebook"></i></a>';
-          }
-          if ($data->cell('social', 'instagram', 'body')) {
-            echo '<a href="' . $data->cell('social', 'instagram', 'body') . '" class="instagram"><i class="bx bxl-instagram", "icofont-instagram"></i></a>';
-          }
-          if ($data->cell('social', 'linkedin', 'body')) {
-            echo '<a href="' . $data->cell('social', 'linkedin', 'body') . '" class="linkedin"><i class="bx bxl-linkedin", icofont-linkedin"></i></a>';
-          }
-          ?>
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="#header">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#resume">Resume</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
 
-        </div>
+      <div class="social-links">
+        <?php
+        if ($data->cell('social', 'twitter', 'body')) {
+          echo '<a href="' . $data->cell('social', 'twitter', 'body') . '" class="twitter"><i class="icofont-twitter"></i></a>';
+        }
+        if ($data->cell('social', 'facebook', 'body')) {
+          echo '<a href="' . $data->cell('social', 'facebook', 'body') . '" class="facebook"><i class="icofont-facebook"></i></a>';
+        }
+        if ($data->cell('social', 'instagram', 'body')) {
+          echo '<a href="' . $data->cell('social', 'instagram', 'body') . '"class="instagram"><i class="icofont-instagram"></i></a>';
+        }
+        if ($data->cell('social', 'linkedin', 'body')) {
+          echo '<a href="' . $data->cell('social', 'linkedin', 'body') . '" class="linkedin"><i class="icofont-linkedin"></i></a>';
+        }
+
+        ?>
+
+
+      </div>
 
     </div>
   </header><!-- End Header -->
@@ -89,85 +90,74 @@ $this->title = $data->cell('user', 'profile', 'header');
           <img src="assets/img/me.jpg" class="img-fluid" alt="">
         </div>
         <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-          <h3>UI/UX &amp; Graphic Designer</h3>
+          <h3><?= $data->cell('about', 'description', 'header') ?></h3>
           <p class="font-italic">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua.
+            <?= $data->cell('about', 'description', 'body') ?>
           </p>
           <div class="row">
-            <div class="col-lg-6">
-              <ul>
-                <li><i class="icofont-rounded-right"></i> <strong>Birthday:</strong> 1 May 1995</li>
-                <li><i class="icofont-rounded-right"></i> <strong>Website:</strong> www.example.com</li>
-                <li><i class="icofont-rounded-right"></i> <strong>Phone:</strong> +123 456 7890</li>
-                <li><i class="icofont-rounded-right"></i> <strong>City:</strong> City : New York, USA</li>
-              </ul>
-            </div>
-            <div class="col-lg-6">
-              <ul>
-                <li><i class="icofont-rounded-right"></i> <strong>Age:</strong> 30</li>
-                <li><i class="icofont-rounded-right"></i> <strong>Degree:</strong> Master</li>
-                <li><i class="icofont-rounded-right"></i> <strong>PhEmailone:</strong> email@example.com</li>
-                <li><i class="icofont-rounded-right"></i> <strong>Freelance:</strong> Available</li>
-              </ul>
-            </div>
+            <?php
+            $aboutItems = $data->all('about', 'items');
+            $aboutItemLen = count($aboutItems);
+
+            foreach ([
+              array_slice($aboutItems, 0, $aboutItemLen / 2 + 1),
+              array_slice($aboutItems, $aboutItemLen / 2 + 1),
+            ] as $aboutHalfItems) {
+              echo '<div class="col-lg-6"><ul>';
+              foreach ($aboutHalfItems as $aboutItem) { ?>
+                <li><i class="icofont-rounded-right"></i> <strong><?= $aboutItem['header'] ?>:</strong> <?= $aboutItem['body'] ?></li>
+            <?php }
+              echo '</ul></div>';
+            }
+            ?>
+
           </div>
-          <p>
-            Officiis eligendi itaque labore et dolorum mollitia officiis optio vero. Quisquam sunt adipisci omnis et ut. Nulla accusantium dolor incidunt officia tempore. Et eius omnis.
-            Cupiditate ut dicta maxime officiis quidem quia. Sed et consectetur qui quia repellendus itaque neque. Aliquid amet quidem ut quaerat cupiditate. Ab et eum qui repellendus omnis culpa magni laudantium dolores.
-          </p>
+          <p><?= $data->cell('skill', 'description', 'body') ?></p>
         </div>
       </div>
 
     </div><!-- End About Me -->
 
     <!-- ======= Counts ======= -->
-    <?php if ($contactCount = $data->count('contact')) { ?>
-      <div class="counts container">
+    <div class="counts container">
 
-        <div class="row">
+      <div class="row">
 
-          <div class="col-lg-3 col-md-6">
-            <div class="count-box">
-              <i class="icofont-simple-smile"></i>
-              <span data-toggle="counter-up">232</span>
-              <p>Happy Clients</p>
-            </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="count-box">
+            <i class="icofont-simple-smile"></i>
+            <span data-toggle="counter-up">232</span>
+            <p>Happy Clients</p>
           </div>
-
-          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
-            <div class="count-box">
-              <i class="icofont-document-folder"></i>
-              <span data-toggle="counter-up">521</span>
-              <p>Projects</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-            <div class="count-box">
-              <i class="icofont-live-support"></i>
-              <span data-toggle="counter-up">1,463</span>
-              <p>Hours Of Support</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-            <div class="count-box">
-              <i class="icofont-users-alt-5"></i>
-              <span data-toggle="counter-up">15</span>
-              <p>Hard Workers</p>
-            </div>
-          </div>
-
         </div>
 
+        <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+          <div class="count-box">
+            <i class="icofont-document-folder"></i>
+            <span data-toggle="counter-up">521</span>
+            <p>Projects</p>
+          </div>
+        </div>
 
+        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+          <div class="count-box">
+            <i class="icofont-live-support"></i>
+            <span data-toggle="counter-up">1,463</span>
+            <p>Hours Of Support</p>
+          </div>
+        </div>
 
-
+        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+          <div class="count-box">
+            <i class="icofont-users-alt-5"></i>
+            <span data-toggle="counter-up">15</span>
+            <p>Hard Workers</p>
+          </div>
+        </div>
 
       </div>
-    <?php } ?>
-    <!-- End Counts -->
+
+    </div><!-- End Counts -->
 
     <!-- ======= Skills  ======= -->
     <div class="skills container">
@@ -351,68 +341,25 @@ $this->title = $data->cell('user', 'profile', 'header');
 
       <div class="section-title">
         <h2>Resume</h2>
-        <p>Check My Resume</p>
+        <p><?= $data->cell('resume', 'description', 'body') ?></p>
       </div>
 
       <div class="row">
-        <div class="col-lg-6">
-          <h3 class="resume-title">Sumary</h3>
-          <div class="resume-item pb-0">
-            <h4>Alice Barkley</h4>
-            <p><em>Innovative and deadline-driven Graphic Designer with 3+ years of experience designing and developing user-centered digital/print marketing material from initial concept to final, polished deliverable.</em></p>
-            <p>
-            <ul>
-              <li>Portland par 127,Orlando, FL</li>
-              <li>(123) 456-7891</li>
-              <li>alice.barkley@example.com</li>
-            </ul>
-            </p>
-          </div>
-
-          <h3 class="resume-title">Education</h3>
-          <div class="resume-item">
-            <h4>Master of Fine Arts &amp; Graphic Design</h4>
-            <h5>2015 - 2016</h5>
-            <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
-            <p>Qui deserunt veniam. Et sed aliquam labore tempore sed quisquam iusto autem sit. Ea vero voluptatum qui ut dignissimos deleniti nerada porti sand markend</p>
-          </div>
-          <div class="resume-item">
-            <h4>Bachelor of Fine Arts &amp; Graphic Design</h4>
-            <h5>2010 - 2014</h5>
-            <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
-            <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <h3 class="resume-title">Professional Experience</h3>
-          <div class="resume-item">
-            <h4>Senior graphic design specialist</h4>
-            <h5>2019 - Present</h5>
-            <p><em>Experion, New York, NY </em></p>
-            <p>
-            <ul>
-              <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
-              <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
-              <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
-              <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
-            </ul>
-            </p>
-          </div>
-          <div class="resume-item">
-            <h4>Graphic design specialist</h4>
-            <h5>2017 - 2018</h5>
-            <p><em>Stepping Stone Advertising, New York, NY</em></p>
-            <p>
-            <ul>
-              <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
-              <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
-              <li>Recommended and consulted with clients on the most appropriate graphic design</li>
-              <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
-            </ul>
-            </p>
-          </div>
-        </div>
-      </div>
+                        <div class="col-lg-10">
+                            <?php foreach (['summary', 'education', 'experience'] as $resumeKey) {
+                                echo '<h3 class="resume-title">' . ucfirst($resumeKey) . '</h3>';
+                                foreach ($data->all('resume', $resumeKey) as $resume) { ?>
+                                    <div class="resume-item">
+                                        <?= $resume['header'] ? '<h4>' . $resume['header']  . '</h4>' : '' ?>
+                                        <?= $resume['tag'] ? '<h5>' . $resume['tag']  . '</h5>' : '' ?>
+                                        <?= $resume['body'] ? '<p>' . $resume['body']  . '</p>' : '' ?>
+                                    </div>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </div>
+                    </div>
 
     </div>
   </section><!-- End Resume Section -->
@@ -657,45 +604,40 @@ $this->title = $data->cell('user', 'profile', 'header');
             <i class="bx bx-share-alt"></i>
             <h3>Social Profiles</h3>
             <div class="social-links">
+
               <?php
               if ($data->cell('social', 'twitter', 'body')) {
-                echo '<a href="' . $data->cell('social', 'twitter', 'body') . '" class="twitter"><i class="bx bxl-twitter", "icofont-twitter"></i></a>';
+                echo '<a href="' . $data->cell('social', 'twitter', 'body') . '" class="twitter"><i class="icofont-twitter"></i></a>';
               }
               if ($data->cell('social', 'facebook', 'body')) {
-                echo '<a href="' . $data->cell('social', 'facebook', 'body') . '" class="facebook"><i class="bx bxl-facebook", "icofont-facebook"></i></a>';
+                echo '<a href="' . $data->cell('social', 'facebook', 'body') . '" class="facebook"><i class="icofont-facebook"></i></a>';
               }
               if ($data->cell('social', 'instagram', 'body')) {
-                echo '<a href="' . $data->cell('social', 'instagram', 'body') . '" class="instagram"><i class="bx bxl-instagram", "icofont-instagram"></i></a>';
+                echo '<a href="' . $data->cell('social', 'instagram', 'body') . '"class="instagram"><i class="icofont-instagram"></i></a>';
               }
               if ($data->cell('social', 'linkedin', 'body')) {
-                echo '<a href="' . $data->cell('social', 'linkedin', 'body') . '" class="linkedin"><i class="bx bxl-linkedin", icofont-linkedin"></i></a>';
+                echo '<a href="' . $data->cell('social', 'linkedin', 'body') . '" class="linkedin"><i class="icofont-linkedin"></i></a>';
               }
-              ?>
 
-              >
+              ?>
             </div>
           </div>
         </div>
 
         <div class="col-md-6 mt-4 d-flex align-items-stretch">
-          <?php if ($data->cell('contact', 'email', 'body')) { ?>
-            <div class="info-box">
-              <i class="bx bx-envelope"></i>
-              <h3>Email Me</h3>
-              <p><?= $data->cell('contact', 'email', 'body'); ?></p>
-            </div>
-          <?php } ?>
-        </div>
-        <?php if ($data->cell('contact', 'call', 'body')) { ?>
-          <div class="col-md-6 mt-4 d-flex align-items-stretch">
-            <div class="info-box">
-              <i class="bx bx-phone-call"></i>
-              <h3>Call Me</h3>
-              <p><?= $data->cell('contact', 'call', 'body'); ?></p>
-            </div>
+          <div class="info-box">
+            <i class="bx bx-envelope"></i>
+            <h3>Email Me</h3>
+            <p><?= $data->cell('contact', 'email', 'body'); ?> </p>
           </div>
-        <?php } ?>
-
+        </div>
+        <div class="col-md-6 mt-4 d-flex align-items-stretch">
+          <div class="info-box">
+            <i class="bx bx-phone-call"></i>
+            <h3>Call Me</h3>
+            <p><?= $data->cell('contact', 'call', 'body'); ?></p>
+          </div>
+        </div>
       </div>
 
       <form action="forms/contact.php" method="post" role="form" class="php-email-form mt-4">
@@ -729,15 +671,13 @@ $this->title = $data->cell('user', 'profile', 'header');
   </section><!-- End Contact Section -->
 
   <div class="credits">
-    <!-- All the links in the footer should remain intact. -->
-    <!-- You can delete the links only if you purchased the pro version. -->
-    <!-- Licensing information: https://bootstrapmade.com/license/ -->
-    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/personal-free-resume-bootstrap-template/ -->
+
     Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
   </div>
-
   <?php $this->endBody() ?>
+
 </body>
+
 
 
 </html>
