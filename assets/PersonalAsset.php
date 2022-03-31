@@ -18,16 +18,16 @@ class PersonalAsset extends AssetBundle
         'theme/Personal/css/style.css',
     ];
     public $js = [
-        'views\Personal.php/vendor/jquery/jquery.min.js',
-        'views\Personal.php/vendor/bootstrap/js/bootstrap.bundle.min.js',
-        'views\Personal.php/vendor/jquery.easing/jquery.easing.min.js',
-        'views\Personal.php/vendor/php-email-form/validate.js',
-        'views\Personal.php/vendor/waypoints/jquery.waypoints.min.js',
-        'views\Personal.php/vendor/counterup/counterup.min.js',
-        'views\Personal.php/vendor/owl.carousel/owl.carousel.min.js',
-        'views\Personal.php/vendor/isotope-layout/isotope.pkgd.min.js',
-        'views\Personal.php/vendor/venobox/venobox.min.js',
-        'views\Personal.php/js/main.js'
+        'theme/Personal/vendor/jquery/jquery.min.js',
+        'theme/Personal/vendor/bootstrap/js/bootstrap.bundle.min.js',
+        'theme/Personal/vendor/jquery.easing/jquery.easing.min.js',
+        'theme/Personal/vendor/php-email-form/validate.js',
+        'theme/Personal/vendor/waypoints/jquery.waypoints.min.js',
+        'theme/Personal/vendor/counterup/counterup.min.js',
+        'theme/Personal/vendor/owl.carousel/owl.carousel.min.js',
+        'theme/Personal/vendor/isotope-layout/isotope.pkgd.min.js',
+        'theme/Personal/vendor/venobox/venobox.min.js',
+        'theme/Personal/js/main.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
